@@ -8,6 +8,7 @@
 header {
   position: fixed;
   top: 0;
+  z-index: 1000;
   width: 100%;
   box-sizing: border-box;
   box-shadow: 1px 1px 10px #b2545d;
@@ -27,7 +28,8 @@ header .current-status {
   font-size: 18px;
   color: rgba(221, 233, 127, 0.5019607843);
 }
-header button {
+header button, header a {
+  text-decoration: none;
   box-sizing: border-box;
   background-color: #8ade7a;
   color: white;
@@ -44,8 +46,93 @@ header .header-menu {
   align-items: center;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+  font-family: "Comic Sans MS";
+}
+.overlay .add-article-con {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 720px;
+  background-color: #d38e95;
+  border-radius: 11px;
+  padding: 50px 50px 25px 50px;
+}
+.overlay .add-article-con .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+}
+.overlay .title {
+  width: 340px;
+  box-sizing: border-box;
+  background-color: #ffbcc2;
+  border-radius: 19px;
+  padding: 18px 90px;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  align-items: center;
+  width: 100%;
+}
+.overlay form .field {
+  font-family: "Comic Sans MS";
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: #ffbcc2;
+  padding: 36px 28px;
+  font-size: 20px;
+}
+.overlay form .field::-moz-placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+.overlay form .field::placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+.overlay form .field:focus {
+  outline: 3px solid #ff9696;
+}
+.overlay form textarea.field {
+  border-bottom-right-radius: 0;
+  height: 400px;
+}
+.overlay form input[type=submit] {
+  display: block;
+  box-sizing: border-box;
+  background-color: #8ade7a;
+  color: white;
+  font-size: 30px;
+  padding: 10px 30px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-family: "JetBrains Mono";
+}
+
 * {
   margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 body {
@@ -55,9 +142,10 @@ body {
   justify-content: center;
 }
 body .content {
+  position: relative;
   border-radius: 11px;
   padding: 18px;
-  background-color: #D38E95;
+  background-color: #d38e95;
   width: 900px;
   display: flex;
   flex-direction: column;
@@ -66,14 +154,14 @@ body .content {
   font-family: "Comic Sans MS";
 }
 body .content .title {
-  background-color: #FFBCC2;
+  background-color: #ffbcc2;
   border-radius: 19px;
   padding: 10px 90px;
   font-size: 40px;
 }
 body .content .articles-con {
   box-sizing: border-box;
-  background-color: #FFBCC2;
+  background-color: #ffbcc2;
   border-radius: 19px;
   padding: 35px;
   font-size: 40px;
@@ -85,7 +173,7 @@ body .content .articles-con .article {
   display: flex;
   justify-content: space-between;
   padding: 12px 30px;
-  background-color: #FFB06B;
+  background-color: #ffb06b;
   border-radius: 12px;
   margin-bottom: 18px;
 }
@@ -93,4 +181,33 @@ body .content .articles-con .article .side-article-con {
   display: flex;
   gap: 55px;
   justify-content: space-around;
+}
+body .content .articles-con .article .side-article-con .action-text {
+  color: rgba(0, 0, 0, 0.5019607843);
+  font-family: "Comic Sans MS";
+  font-size: 20px;
+}
+body .content .articles-con .article .side-article-con .action-text:hover {
+  color: #000000;
+}
+body .content .add-btn {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 15px);
+  text-decoration: none;
+  box-sizing: border-box;
+  background-color: #8ade7a;
+  color: white;
+  font-size: 30px;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 25px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-family: "JetBrains Mono";
+}
+body .content .add-btn:hover {
+  background-color: rgb(141, 224, 125);
+  outline: 3px solid #d38e95;
 }/*# sourceMappingURL=admin.css.map */

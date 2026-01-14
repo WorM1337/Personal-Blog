@@ -1,6 +1,7 @@
 header {
   position: fixed;
   top: 0;
+  z-index: 1000;
   width: 100%;
   box-sizing: border-box;
   box-shadow: 1px 1px 10px #b2545d;
@@ -19,7 +20,8 @@ header {
     font-size: 18px;
     color: #dde97f80;
   }
-  button {
+  button, a {
+    text-decoration: none;
     box-sizing: border-box;
     background-color: #8ade7a;
     color: white;

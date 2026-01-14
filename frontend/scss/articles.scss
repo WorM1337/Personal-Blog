@@ -4,6 +4,7 @@
     margin: 0;
     background-color: transparent;
     border: none;
+    outline: none;
 }
 body {
     background-color: #e0a3a9;
@@ -51,14 +52,6 @@ body {
                     justify-content: space-around;
                     .date {
 
-                    }
-                    .action-text {
-                        color: #00000080;
-                        font-family: "Comic Sans MS";
-                        font-size: 20px;
-                    }
-                    .action-text:hover {
-                        color: #000000;
                     }
                 }
             }

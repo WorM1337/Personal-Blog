@@ -8,6 +8,7 @@
 header {
   position: fixed;
   top: 0;
+  z-index: 1000;
   width: 100%;
   box-sizing: border-box;
   box-shadow: 1px 1px 10px #b2545d;
@@ -27,7 +28,8 @@ header .current-status {
   font-size: 18px;
   color: rgba(221, 233, 127, 0.5019607843);
 }
-header button {
+header button, header a {
+  text-decoration: none;
   box-sizing: border-box;
   background-color: #8ade7a;
   color: white;
@@ -48,6 +50,7 @@ header .header-menu {
   margin: 0;
   background-color: transparent;
   border: none;
+  outline: none;
 }
 
 body {
@@ -95,12 +98,4 @@ body .content .articles-con .article .side-article-con {
   display: flex;
   gap: 55px;
   justify-content: space-around;
-}
-body .content .articles-con .article .side-article-con .action-text {
-  color: rgba(0, 0, 0, 0.5019607843);
-  font-family: "Comic Sans MS";
-  font-size: 20px;
-}
-body .content .articles-con .article .side-article-con .action-text:hover {
-  color: #000000;
 }/*# sourceMappingURL=articles.css.map */

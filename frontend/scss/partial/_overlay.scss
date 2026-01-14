@@ -1,0 +1,78 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+  font-family: "Comic Sans MS";
+
+  .add-article-con {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 720px;
+    background-color: #d38e95;
+    border-radius: 11px;
+    padding: 50px 50px 25px 50px;
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0;
+    }
+  }
+  .title {
+    width: 340px;
+    box-sizing: border-box;
+    background-color: #ffbcc2;
+    border-radius: 19px;
+    padding: 18px 90px;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    align-items: center;
+    width: 100%;
+    .field {
+      font-family: "Comic Sans MS";
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background-color: #ffbcc2;
+      padding: 36px 28px;
+      font-size: 20px;
+    }
+    .field::placeholder {
+      color: #9f6464;
+      font-weight: normal;
+    }
+    .field:focus {
+      outline: 3px solid #ff9696;
+    }
+    textarea.field {
+      border-bottom-right-radius: 0;
+      height: 400px;
+    }
+    input[type="submit"] {
+      display: block;
+      box-sizing: border-box;
+      background-color: #8ade7a;
+      color: white;
+      font-size: 30px;
+      padding: 10px 30px;
+      text-align: center;
+      border: none;
+      border-radius: 50px;
+      font-family: "JetBrains Mono";
+    }
+  }
+}
