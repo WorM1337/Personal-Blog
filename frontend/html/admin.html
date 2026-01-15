@@ -34,6 +34,32 @@
           <input type="submit" value="Publish" />
         </form>
       </div>
+      <div class="update-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Update</div>
+        <form action="">
+          <input type="text" class="field" placeholder="Title" />
+          <input
+            type="date"
+            class="field"
+            placeholder="Date"
+          /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
+          <textarea class="field" name="" id="" placeholder="Text"></textarea>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
     </div>
     <header>
       <span class="header-title">Blogging workspace</span>
@@ -48,7 +74,9 @@
         <div class="article">
           <span class="article-title">My first article</span>
           <div class="side-article-con">
-            <span class="date">13.01.2026</span>
+            <span class="date" style="display: inline;">13.01.2026</span>
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
           </div>
         </div>
         <div class="article">
@@ -185,5 +213,6 @@
       </div>
       <button class="add-btn">+ Add</button>
     </div>
+    <script src="../js/articles-admin.js"></script>
   </body>
 </html>

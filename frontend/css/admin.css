@@ -54,13 +54,13 @@ header .header-menu {
   height: 100vh;
   z-index: 1001;
   background-color: rgba(0, 0, 0, 0.3);
-  display: grid;
+  display: none;
   place-items: center;
   font-family: "Comic Sans MS";
 }
-.overlay .add-article-con {
+.overlay .add-article-con, .overlay .update-article-con {
   position: relative;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   width: 720px;
@@ -68,7 +68,7 @@ header .header-menu {
   border-radius: 11px;
   padding: 50px 50px 25px 50px;
 }
-.overlay .add-article-con .close-btn {
+.overlay .add-article-con .close-btn, .overlay .update-article-con .close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -133,6 +133,7 @@ header .header-menu {
   background-color: transparent;
   border: none;
   outline: none;
+  padding: 0;
 }
 
 body {
@@ -182,7 +183,11 @@ body .content .articles-con .article .side-article-con {
   gap: 55px;
   justify-content: space-around;
 }
+body .content .articles-con .article .side-article-con .date {
+  display: none;
+}
 body .content .articles-con .article .side-article-con .action-text {
+  display: none;
   color: rgba(0, 0, 0, 0.5019607843);
   font-family: "Comic Sans MS";
   font-size: 20px;

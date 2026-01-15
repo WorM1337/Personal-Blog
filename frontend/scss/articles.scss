@@ -1,11 +1,6 @@
 @use "./partial/fonts";
 @use './partial/header';
-* {
-    margin: 0;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
+@use "./partial/zeroing";
 body {
     background-color: #e0a3a9;
     padding: 100px;

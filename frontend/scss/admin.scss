@@ -1,12 +1,7 @@
 @use "./partial/fonts";
 @use "./partial/header";
 @use "./partial/overlay";
-* {
-  margin: 0;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
+@use "./partial/zeroing";
 body {
   background-color: #e0a3a9;
   padding: 100px;
@@ -52,8 +47,10 @@ body {
           gap: 55px;
           justify-content: space-around;
           .date {
+            display: none;
           }
           .action-text {
+            display: none;
             color: #00000080;
             font-family: "Comic Sans MS";
             font-size: 20px;
