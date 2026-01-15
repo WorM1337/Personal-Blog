@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    user: "mongodb:mongodb"
+    command: mongod --bind_ip_all
+    volumes:
+      - mongodbdata:/data/db
+volumes:
+  mongodbdata:
