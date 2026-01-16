@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Personal_Blog.Model.Domain;
 using Personal_Blog.Model.Requests;
@@ -30,6 +31,7 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     }
 
     [HttpPost("add")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddArticle(CreateArticleRequest request)
     {
         await _articleService.InsertArticle(request);
@@ -37,17 +39,19 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     }
 
     [HttpDelete("delete/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Article>> DeleteArticle(string id)
     {
         var result = await _articleService.DeleteById(id);
         if (result) return Ok(new { Id = id });
         else return NotFound();
     }
-    [HttpPatch("delete/{id}")]
-    public async Task<ActionResult<Article>> UpdateArticle(string id)
+    [HttpPatch("update/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<Article>> UpdateArticle(string id, [FromBody] UpdateArticleRequest request)
     {
-        var result = await _articleService.DeleteById(id);
+        var result = await _articleService.UpdateOne(id, request);
         if (result) return Ok(new { Id = id });
-        else return NotFound();
+        return NotFound();
     }
 }
