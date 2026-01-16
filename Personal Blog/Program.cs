@@ -1,8 +1,6 @@
 using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Personal_Blog.Model.Settings;
 using Personal_Blog.Services;
