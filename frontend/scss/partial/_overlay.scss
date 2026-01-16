@@ -10,7 +10,9 @@
   place-items: center;
   font-family: "Comic Sans MS";
 
-  .add-article-con, .update-article-con {
+  .add-article-con,
+  .update-article-con,
+  .read-article-con {
     position: relative;
     display: none;
     flex-direction: column;
@@ -24,6 +26,32 @@
       top: 10px;
       right: 10px;
       padding: 0;
+    }
+  }
+  .read-article-con .article-content {
+    font-family: "Comic Sans MS";
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background-color: #ffbcc2;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    //font-size: 20px;
+    gap: 11px;
+    .article-title {
+      color: #9F6464;
+      font-size: 30px;
+    }
+    .article-date {
+      color: #E8A9A9;
+      font-size: 25px;
+    }
+    .article-text {
+      color: #9F6464;
+      font-size: 20px;
+      height: 400px;
+      overflow-y: scroll;
     }
   }
   .title {

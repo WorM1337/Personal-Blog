@@ -23,14 +23,16 @@
           </svg>
         </button>
         <div class="title">Add new</div>
-        <form action="">
-          <input type="text" class="field" placeholder="Title" />
+        <form action="http://localhost:5081/api/articles/add" method="post">
+          <input type="text" name="title" class="field" placeholder="Title" required />
           <input
             type="date"
+            name="date"
             class="field"
             placeholder="Date"
+            required
           /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
-          <textarea class="field" name="" id="" placeholder="Text"></textarea>
+          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
           <input type="submit" value="Publish" />
         </form>
       </div>
@@ -49,16 +51,38 @@
           </svg>
         </button>
         <div class="title">Update</div>
-        <form action="">
-          <input type="text" class="field" placeholder="Title" />
+        <form action="http://localhost:5081/api/articles/update" method="post">
+          <input type="text" name="title" class="field" placeholder="Title" />
           <input
             type="date"
+            name="date"
             class="field"
             placeholder="Date"
           /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
-          <textarea class="field" name="" id="" placeholder="Text"></textarea>
+          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
           <input type="submit" value="Update" />
         </form>
+      </div>
+      <div class="read-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Article</div>
+        <div class="article-content">
+          <span class="article-title">Title</span>
+          <span class="article-date">2000-10-10</span>
+          <div class="article-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt blanditiis nihil sed exercitationem commodi iste reprehenderit fugit, similique quia quod tempora aliquam, facilis quos magnam, maxime aut accusantium magni cum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi reprehenderit consequuntur nulla nihil explicabo recusandae hic ratione qui ipsam dolorum debitis repudiandae temporibus, cumque unde eius. At porro aut quisquam.</div>
+        </div>
       </div>
     </div>
     <header>

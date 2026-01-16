@@ -30,6 +30,7 @@ function toggleModal(modal) {
 
 const addArticleCon = overlay.querySelector(".add-article-con")
 const updateArticleCon = overlay.querySelector(".update-article-con")
+const readArticleCon = overlay.querySelector('.read-article-con')
 
 AddButton.addEventListener('click', () => {
     toggleOverlay();
@@ -52,7 +53,7 @@ console.log(article)
 article.addEventListener('mouseenter', () => {
     const actions = article.querySelectorAll(".action-text");
     const date = article.querySelector(".date")
-    if(Array.from(actions).length != 0) {
+    if(Array.from(actions).length == 2) {
         if(isInactive(date)) {
             date.setAttribute('style', 'display: inline;')
             Array.from(actions).forEach((item) => {
@@ -70,7 +71,7 @@ article.addEventListener('mouseenter', () => {
 article.addEventListener('mouseleave', () => {
     const actions = article.querySelectorAll(".action-text");
     const date = article.querySelector(".date")
-    if(Array.from(actions).length != 0) {
+    if(Array.from(actions).length == 2) {
         if(isInactive(date)) {
             date.setAttribute('style', 'display: inline;')
             Array.from(actions).forEach((item) => {
@@ -85,5 +86,10 @@ article.addEventListener('mouseleave', () => {
         }
     }
 })
+article.addEventListener('click', (e) => {
+    if(e.target == article) {
+        toggleOverlay();
+        toggleModal(readArticleCon)
+    }
+})// TODO: Нужно, чтобы подгружались название, дата и текст статьи
 // TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
-// Конец всех событий
