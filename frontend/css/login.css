@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@font-face {
+  font-family: "Comic Sans MS";
+  src: url("/src/Comic Sans MS.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 10px #b2545d;
+  display: flex;
+  background-color: #ef737f;
+  padding: 10px 30px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Comic Sans MS";
+}
+header .header-title {
+  font-size: 25px;
+  color: #dde97f;
+  font-weight: 600;
+}
+header .current-status {
+  font-size: 18px;
+  color: rgba(221, 233, 127, 0.5019607843);
+}
+header button, header a {
+  text-decoration: none;
+  box-sizing: border-box;
+  background-color: #8ade7a;
+  color: white;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-family: "JetBrains Mono";
+}
+header .header-menu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  place-items: center;
+  font-family: "Comic Sans MS";
+}
+.overlay .add-article-con,
+.overlay .update-article-con,
+.overlay .read-article-con {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 720px;
+  background-color: #d38e95;
+  border-radius: 11px;
+  padding: 50px 50px 25px 50px;
+}
+.overlay .add-article-con .close-btn,
+.overlay .update-article-con .close-btn,
+.overlay .read-article-con .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+}
+.overlay .read-article-con .article-content {
+  font-family: "Comic Sans MS";
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: #ffbcc2;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.overlay .read-article-con .article-content .article-title {
+  color: #9F6464;
+  font-size: 30px;
+}
+.overlay .read-article-con .article-content .article-date {
+  color: #E8A9A9;
+  font-size: 25px;
+}
+.overlay .read-article-con .article-content .article-text {
+  color: #9F6464;
+  font-size: 20px;
+  height: 400px;
+  overflow-y: scroll;
+}
+.overlay .title {
+  width: 340px;
+  box-sizing: border-box;
+  background-color: #ffbcc2;
+  border-radius: 19px;
+  padding: 18px 90px;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  align-items: center;
+  width: 100%;
+}
+.overlay form .field {
+  font-family: "Comic Sans MS";
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: #ffbcc2;
+  padding: 36px 28px;
+  font-size: 20px;
+}
+.overlay form .field::-moz-placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+.overlay form .field::placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+.overlay form .field:focus {
+  outline: 3px solid #ff9696;
+}
+.overlay form textarea.field {
+  border-bottom-right-radius: 0;
+  height: 400px;
+}
+.overlay form input[type=submit] {
+  display: block;
+  box-sizing: border-box;
+  background-color: #8ade7a;
+  color: white;
+  font-size: 30px;
+  padding: 10px 30px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-family: "JetBrains Mono";
+}
+
+* {
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+body {
+  background-color: #e0a3a9;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+}
+body .content {
+  position: relative;
+  border-radius: 11px;
+  padding: 18px;
+  background-color: #d38e95;
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  font-family: "Comic Sans MS";
+}
+body .content .title {
+  background-color: #ffbcc2;
+  border-radius: 19px;
+  padding: 10px 90px;
+  font-size: 40px;
+}
+body .content .login-con {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 720px;
+  background-color: #d38e95;
+  border-radius: 11px;
+  padding: 50px 50px 25px 50px;
+}
+body .content .login-con .article {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 720px;
+  background-color: #d38e95;
+  border-radius: 11px;
+  padding: 50px 50px 25px 50px;
+}
+body .content form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  align-items: center;
+  width: 100%;
+}
+body .content form .field {
+  font-family: "Comic Sans MS";
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: #ffbcc2;
+  padding: 36px 28px;
+  font-size: 20px;
+}
+body .content form .field::-moz-placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+body .content form .field::placeholder {
+  color: #9f6464;
+  font-weight: normal;
+}
+body .content form .field:focus {
+  outline: 3px solid #ff9696;
+}
+body .content form textarea.field {
+  border-bottom-right-radius: 0;
+  height: 400px;
+}
+body .content form input[type=submit] {
+  display: block;
+  box-sizing: border-box;
+  background-color: #8ade7a;
+  color: white;
+  font-size: 30px;
+  padding: 10px 30px;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  font-family: "JetBrains Mono";
+}/*# sourceMappingURL=login.css.map */

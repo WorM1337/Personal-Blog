@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles</title>
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body>
+    <div class="overlay">
+      <div class="add-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Add new</div>
+        <form action="http://localhost:5081/api/articles/add" method="post">
+          <input type="text" name="title" class="field" placeholder="Title" required />
+          <input
+            type="date"
+            name="date"
+            class="field"
+            placeholder="Date"
+            required
+          /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
+          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
+          <input type="submit" value="Publish" />
+        </form>
+      </div>
+      <div class="update-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Update</div>
+        <form action="http://localhost:5081/api/articles/update" method="post">
+          <input type="text" name="title" class="field" placeholder="Title" />
+          <input
+            type="date"
+            name="date"
+            class="field"
+            placeholder="Date"
+          /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
+          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+      <div class="read-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Article</div>
+        <div class="article-content">
+          <span class="article-title">Title</span>
+          <span class="article-date">2000-10-10</span>
+          <div class="article-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt blanditiis nihil sed exercitationem commodi iste reprehenderit fugit, similique quia quod tempora aliquam, facilis quos magnam, maxime aut accusantium magni cum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi reprehenderit consequuntur nulla nihil explicabo recusandae hic ratione qui ipsam dolorum debitis repudiandae temporibus, cumque unde eius. At porro aut quisquam.</div>
+        </div>
+      </div>
+    </div>
+    <header>
+      <span class="header-title">Blogging workspace</span>
+      <div class="header-menu">
+        <span class="current-status">You’re an admin now</span>
+        <a href="./articles.html">Logout to guest</a>
+      </div>
+    </header>
+    <div class="content">
+      <div class="title">Articles</div>
+      <div class="articles-con">
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <span class="date" style="display: inline;">13.01.2026</span>
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <span class="date">13.01.2026</span>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <span class="date">13.01.2026</span>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+        <div class="article">
+          <span class="article-title">My first article</span>
+          <div class="side-article-con">
+            <button class="action-text">Edit</button>
+            <button class="action-text">Delete</button>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn">+ Add</button>
+    </div>
+    <script src="../js/articles-admin.js"></script>
+  </body>
+</html>

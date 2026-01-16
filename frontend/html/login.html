@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+    <header>
+        <span class="header-title">Blogging workspace</span>
+        <div class="header-menu">
+            <span class="current-status">You’re a guest now</span>
+            <a href="./articles.html">To articles</a>
+        </div>
+    </header>
+    <div class="content">
+        <div class="title">Login as admin</div>
+        <div class="login-con">
+            <form id="loginForm">
+                <input type="text" class="field" placeholder="Login" required id="username" />
+                <input type="password" class="field" placeholder="Password" required id="password" />
+                <input type="submit" value="Submit" />
+                <div id="errorMessage" style="color: red; margin-top: 10px; display: none;"></div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/login.js"></script>
+</body>
+</html>
