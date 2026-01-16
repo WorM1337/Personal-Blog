@@ -1,0 +1,87 @@
+@use "./partial/fonts";
+@use "./partial/header";
+@use "./partial/overlay";
+@use "./partial/zeroing";
+body {
+  background-color: #e0a3a9;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+  .content {
+    position: relative;
+    border-radius: 11px;
+    padding: 18px;
+    background-color: #d38e95;
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    font-family: "Comic Sans MS";
+    .title {
+      background-color: #ffbcc2;
+      border-radius: 19px;
+      padding: 10px 90px;
+      font-size: 40px;
+    }
+    .login-con {
+      position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 720px;
+    background-color: #d38e95;
+    border-radius: 11px;
+    padding: 50px 50px 25px 50px;
+      .article {
+        position: relative;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 720px;
+        background-color: #d38e95;
+        border-radius: 11px;
+        padding: 50px 50px 25px 50px;
+      }
+    }
+    form {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    align-items: center;
+    width: 100%;
+    .field {
+      font-family: "Comic Sans MS";
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background-color: #ffbcc2;
+      padding: 36px 28px;
+      font-size: 20px;
+    }
+    .field::placeholder {
+      color: #9f6464;
+      font-weight: normal;
+    }
+    .field:focus {
+      outline: 3px solid #ff9696;
+    }
+    textarea.field {
+      border-bottom-right-radius: 0;
+      height: 400px;
+    }
+    input[type="submit"] {
+      display: block;
+      box-sizing: border-box;
+      background-color: #8ade7a;
+      color: white;
+      font-size: 30px;
+      padding: 10px 30px;
+      text-align: center;
+      border: none;
+      border-radius: 50px;
+      font-family: "JetBrains Mono";
+    }
+  }
+  }
+}
