@@ -52,15 +52,16 @@
           </svg>
         </button>
         <div class="title">Update</div>
-        <form action="http://localhost:5000/api/articles/update" method="post">
-          <input type="text" name="title" class="field" placeholder="Title" />
+        <form id="update-form" action="./admin.html">
+          <input type="text" id="update-title" name="title" class="field" placeholder="Title" />
           <input
+          id="update-date"
             type="date"
             name="date"
             class="field"
             placeholder="Date"
           /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
-          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
+          <textarea id="update-text" class="field" name="text" placeholder="Text"></textarea>
           <input type="submit" value="Update" />
         </form>
       </div>
@@ -90,26 +91,12 @@
       <span class="header-title">Blogging workspace</span>
       <div class="header-menu">
         <span class="current-status">You’re an admin now</span>
-        <a href="./articles.html">Logout to guest</a>
+        <a href="./articles.html" id="logout">Logout to guest</a>
       </div>
     </header>
     <div class="content">
       <div class="title">Articles</div>
       <div class="articles-con">
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date" style="display: inline;">13.01.2026</span>
-            <button class="action-text">Edit</button>
-            <button class="action-text">Delete</button>
-          </div>
-        </div>
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date">13.01.2026</span>
-          </div>
-        </div>
         
       </div>
       <button class="add-btn">+ Add</button>

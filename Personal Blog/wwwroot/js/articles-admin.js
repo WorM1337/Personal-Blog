@@ -1,3 +1,10 @@
+
+if(localStorage.getItem("jwtToken") == null) {
+    window.location.href = './articles.html'
+}
+
+
+
 const body = document.querySelector("body");
 const overlay = document.querySelector(".overlay");
 
@@ -89,6 +96,26 @@ function updateReadCon(art) {
     if (art.text != undefined) textCon.innerHTML = art.text;
   }
 }
+function updateUpdateCon(art) {
+  const titleCon = document.getElementById("update-title");
+  const dateCon = document.getElementById("update-date");
+  const textCon = document.getElementById("update-text");
+  if (art == undefined) {
+    titleCon.value = "";
+    dateCon.value = "";
+    textCon.value = "";
+  } else {
+    if (art.title != undefined) titleCon.value = art.title;
+    if (art.date != undefined) {
+      const dateObj = new Date(art.date);
+      const formattedDate = dateObj.toISOString().split("T")[0];
+      dateCon.value = formattedDate;
+      // TODO: Сделать уже что то с датами на бекэнде
+    }
+    if (art.text != undefined) textCon.value = art.text;
+  }
+}
+var currentUpdateArticleId = null;
 function ViewAllArticles() {
   articlesCon.innerHTML = "";
   articlesData.forEach((item) => {
@@ -100,6 +127,33 @@ function ViewAllArticles() {
             <button class="action-text">Edit</button>
             <button class="action-text">Delete</button>
           </div>`;
+    const buttons = article.querySelectorAll("button");
+    const editBtn = buttons[0];
+    const deleteBtn = buttons[1];
+
+    editBtn.addEventListener("click", () => {
+      toggleOverlay();
+      updateUpdateCon(item);
+      toggleModal(updateArticleCon);
+      currentUpdateArticleId = item.id;
+    });
+    deleteBtn.addEventListener("click", async () => {
+      let isConfirmed = confirm("Do you really want to delete?");
+      if (isConfirmed) {
+        const response = await fetch(
+          `http://localhost:5000/api/articles/delete/${item.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+            }
+          }
+        );
+        if(currentUpdateArticleId == item.id) currentUpdateArticleId = null;
+        location.reload();
+      }
+    });
 
     console.log(article);
     article.addEventListener("mouseenter", () => {
@@ -156,25 +210,58 @@ async function AddArticle() {
   //const addSubmit = addForm.getElementById(".add-sunmit")
 
   addForm.addEventListener("submit", async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const response = await fetch("http://localhost:5000/api/articles/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
       },
       body: JSON.stringify({
         title: addTitle.value,
         date: addDate.value,
-        text: addText.value
-      })
+        text: addText.value,
+      }),
     });
-    if(response.ok) {
-        window.location.href = "./admin.html";
+    if (response.ok) {
+      window.location.href = "./admin.html";
     }
   });
 }
+async function UpdateArticle() {
+  const updateForm = document.getElementById("update-form");
+  const updateTitle = document.getElementById("update-title");
+  const updateDate = document.getElementById("update-date");
+  const updateText = document.getElementById("update-text");
+  //const addSubmit = addForm.getElementById(".add-sunmit")
+
+  updateForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:5000/api/articles/update/${currentUpdateArticleId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      },
+      body: JSON.stringify({
+        title: updateTitle.value,
+        date: updateDate.value,
+        text: updateText.value,
+      }),
+    });
+    if (response.ok) {
+      window.location.href = "./admin.html";
+    }
+  });
+}
+UpdateArticle();
 AddArticle();
 // Все эти события нужно будет накидывать на каждый article при подгрузке
 // TODO: Нужно, чтобы подгружались название, дата и текст статьи
 // TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
+
+
+const logoutBtn = document.getElementById("logout")
+logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('jwtToken')
+})
