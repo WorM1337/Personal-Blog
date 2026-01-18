@@ -23,17 +23,18 @@
           </svg>
         </button>
         <div class="title">Add new</div>
-        <form action="http://localhost:5000/api/articles/add" method="post">
-          <input type="text" name="title" class="field" placeholder="Title" required />
+        <form id="add-form" action="./admin.html">
+          <input id="add-title" type="text" name="title" class="field" placeholder="Title" required />
           <input
+          id="add-date"
             type="date"
             name="date"
             class="field"
             placeholder="Date"
             required
           /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
-          <textarea class="field" name="text" id="" placeholder="Text"></textarea>
-          <input type="submit" value="Publish" />
+          <textarea id="add-text" class="field" name="text" placeholder="Text"></textarea>
+          <input id="add-submit" type="submit" value="Publish" />
         </form>
       </div>
       <div class="update-article-con">

@@ -138,7 +138,7 @@ function ViewAllArticles() {
     });
     article.addEventListener("click", (e) => {
       if (e.target == article) {
-        updateReadCon(item)
+        updateReadCon(item);
         toggleOverlay();
         toggleModal(readArticleCon);
       }
@@ -147,6 +147,34 @@ function ViewAllArticles() {
   });
 }
 firstData();
+
+async function AddArticle() {
+  const addForm = document.getElementById("add-form");
+  const addTitle = document.getElementById("add-title");
+  const addDate = document.getElementById("add-date");
+  const addText = document.getElementById("add-text");
+  //const addSubmit = addForm.getElementById(".add-sunmit")
+
+  addForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const response = await fetch("http://localhost:5000/api/articles/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+      },
+      body: JSON.stringify({
+        title: addTitle.value,
+        date: addDate.value,
+        text: addText.value
+      })
+    });
+    if(response.ok) {
+        window.location.href = "./admin.html";
+    }
+  });
+}
+AddArticle();
 // Все эти события нужно будет накидывать на каждый article при подгрузке
 // TODO: Нужно, чтобы подгружались название, дата и текст статьи
 // TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
