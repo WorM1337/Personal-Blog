@@ -39,7 +39,11 @@ AddButton.addEventListener("click", () => {
 overlay.addEventListener("click", (e) => {
   if (e.target == overlay || e.target.closest(".close-btn")) {
     toggleOverlay();
-    toggleModal(addArticleCon);
+
+    // Здесь нужен toggle для текущей активной модалки
+    if (!isInactive(addArticleCon)) toggleModal(addArticleCon);
+    else if (!isInactive(updateArticleCon)) toggleModal(updateArticleCon);
+    else if (!isInactive(readArticleCon)) toggleModal(readArticleCon);
   }
 });
 
@@ -70,6 +74,20 @@ async function firstData() {
   });
 
   ViewAllArticles();
+}
+function updateReadCon(art) {
+  const titleCon = readArticleCon.querySelector(".article-title");
+  const dateCon = readArticleCon.querySelector(".article-date");
+  const textCon = readArticleCon.querySelector(".article-text");
+  if (art == undefined) {
+    titleCon.innerHTML = "";
+    dateCon.innerHTML = "";
+    textCon.innerHTML = "";
+  } else {
+    if (art.title != undefined) titleCon.innerHTML = art.title;
+    if (art.date != undefined) dateCon.innerHTML = art.date;
+    if (art.text != undefined) textCon.innerHTML = art.text;
+  }
 }
 function ViewAllArticles() {
   articlesCon.innerHTML = "";
@@ -120,6 +138,7 @@ function ViewAllArticles() {
     });
     article.addEventListener("click", (e) => {
       if (e.target == article) {
+        updateReadCon(item)
         toggleOverlay();
         toggleModal(readArticleCon);
       }
@@ -127,7 +146,7 @@ function ViewAllArticles() {
     articlesCon.appendChild(article);
   });
 }
-firstData()
+firstData();
 // Все эти события нужно будет накидывать на каждый article при подгрузке
 // TODO: Нужно, чтобы подгружались название, дата и текст статьи
 // TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
