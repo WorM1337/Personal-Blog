@@ -7,6 +7,86 @@
     <link rel="stylesheet" href="/css/articles.css" />
   </head>
   <body>
+    <div class="overlay">
+      <div class="add-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Add new</div>
+        <form id="add-form" action="./admin.html">
+          <input id="add-title" type="text" name="title" class="field" placeholder="Title" required />
+          <input
+          id="add-date"
+            type="date"
+            name="date"
+            class="field"
+            placeholder="Date"
+            required
+          /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
+          <textarea id="add-text" class="field" name="text" placeholder="Text"></textarea>
+          <input id="add-submit" type="submit" value="Publish" />
+        </form>
+      </div>
+      <div class="update-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Update</div>
+        <form id="update-form" action="./admin.html">
+          <input type="text" id="update-title" name="title" class="field" placeholder="Title" />
+          <input
+          id="update-date"
+            type="date"
+            name="date"
+            class="field"
+            placeholder="Date"
+          /><!--  TODO: Сделать так, чтобы в качестве value была текущая дата -->
+          <textarea id="update-text" class="field" name="text" placeholder="Text"></textarea>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+      <div class="read-article-con">
+        <button class="close-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#BE757C"
+          >
+            <path
+              d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+            />
+          </svg>
+        </button>
+        <div class="title">Article</div>
+        <div class="article-content">
+          <span class="article-title">Title</span>
+          <span class="article-date">2000-10-10</span>
+          <div class="article-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt blanditiis nihil sed exercitationem commodi iste reprehenderit fugit, similique quia quod tempora aliquam, facilis quos magnam, maxime aut accusantium magni cum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi reprehenderit consequuntur nulla nihil explicabo recusandae hic ratione qui ipsam dolorum debitis repudiandae temporibus, cumque unde eius. At porro aut quisquam.</div>
+        </div>
+      </div>
+    </div>
     <header>
       <span class="header-title">Blogging workspace</span>
       <div class="header-menu">
@@ -17,31 +97,9 @@
     <div class="content">
       <div class="title">Articles</div>
       <div class="articles-con">
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date">13.01.2026</span>
-          </div>
-        </div>
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date">13.01.2026</span>
-          </div>
-        </div>
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date">13.01.2026</span>
-          </div>
-        </div>
-        <div class="article">
-          <span class="article-title">My first article</span>
-          <div class="side-article-con">
-            <span class="date">13.01.2026</span>
-          </div>
-        </div>
+        
       </div>
     </div>
+    <script src="../js/articles-admin.js"></script>
   </body>
 </html>

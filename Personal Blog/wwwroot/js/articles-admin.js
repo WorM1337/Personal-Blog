@@ -1,9 +1,10 @@
-
-if(localStorage.getItem("jwtToken") == null) {
-    window.location.href = './articles.html'
+function IsAdminPage() {
+  return window.location.href == "http://localhost:5000/html/admin.html";
 }
 
-
+if (localStorage.getItem("jwtToken") == null && IsAdminPage()) {
+  window.location.href = "./articles.html";
+}
 
 const body = document.querySelector("body");
 const overlay = document.querySelector(".overlay");
@@ -38,7 +39,7 @@ const addArticleCon = overlay.querySelector(".add-article-con");
 const updateArticleCon = overlay.querySelector(".update-article-con");
 const readArticleCon = overlay.querySelector(".read-article-con");
 
-AddButton.addEventListener("click", () => {
+AddButton?.addEventListener("click", () => {
   toggleOverlay();
   toggleModal(addArticleCon);
 });
@@ -147,49 +148,51 @@ function ViewAllArticles() {
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + localStorage.getItem("jwtToken"),
-            }
-          }
+            },
+          },
         );
-        if(currentUpdateArticleId == item.id) currentUpdateArticleId = null;
+        if (currentUpdateArticleId == item.id) currentUpdateArticleId = null;
         location.reload();
       }
     });
 
-    console.log(article);
-    article.addEventListener("mouseenter", () => {
-      const actions = article.querySelectorAll(".action-text");
-      const date = article.querySelector(".date");
-      if (Array.from(actions).length == 2) {
-        if (isInactive(date)) {
-          date.setAttribute("style", "display: inline;");
-          Array.from(actions).forEach((item) => {
-            item.setAttribute("style", "");
-          });
-        } else {
-          date.setAttribute("style", "");
-          Array.from(actions).forEach((item) => {
-            item.setAttribute("style", "display: block");
-          });
+    if (IsAdminPage()) {
+      article.addEventListener("mouseenter", () => {
+        const actions = article.querySelectorAll(".action-text");
+        const date = article.querySelector(".date");
+        if (Array.from(actions).length == 2) {
+          if (isInactive(date)) {
+            date.setAttribute("style", "display: inline;");
+            Array.from(actions).forEach((item) => {
+              item.setAttribute("style", "");
+            });
+          } else {
+            date.setAttribute("style", "");
+            Array.from(actions).forEach((item) => {
+              item.setAttribute("style", "display: block");
+            });
+          }
         }
-      }
-    });
-    article.addEventListener("mouseleave", () => {
-      const actions = article.querySelectorAll(".action-text");
-      const date = article.querySelector(".date");
-      if (Array.from(actions).length == 2) {
-        if (isInactive(date)) {
-          date.setAttribute("style", "display: inline;");
-          Array.from(actions).forEach((item) => {
-            item.setAttribute("style", "");
-          });
-        } else {
-          date.setAttribute("style", "");
-          Array.from(actions).forEach((item) => {
-            item.setAttribute("style", "display: block");
-          });
+      });
+      article.addEventListener("mouseleave", () => {
+        const actions = article.querySelectorAll(".action-text");
+        const date = article.querySelector(".date");
+        if (Array.from(actions).length == 2) {
+          if (isInactive(date)) {
+            date.setAttribute("style", "display: inline;");
+            Array.from(actions).forEach((item) => {
+              item.setAttribute("style", "");
+            });
+          } else {
+            date.setAttribute("style", "");
+            Array.from(actions).forEach((item) => {
+              item.setAttribute("style", "display: block");
+            });
+          }
         }
-      }
-    });
+      });
+    }
+
     article.addEventListener("click", (e) => {
       if (e.target == article) {
         updateReadCon(item);
@@ -237,18 +240,21 @@ async function UpdateArticle() {
 
   updateForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:5000/api/articles/update/${currentUpdateArticleId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+    const response = await fetch(
+      `http://localhost:5000/api/articles/update/${currentUpdateArticleId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+        },
+        body: JSON.stringify({
+          title: updateTitle.value,
+          date: updateDate.value,
+          text: updateText.value,
+        }),
       },
-      body: JSON.stringify({
-        title: updateTitle.value,
-        date: updateDate.value,
-        text: updateText.value,
-      }),
-    });
+    );
     if (response.ok) {
       window.location.href = "./admin.html";
     }
@@ -260,8 +266,7 @@ AddArticle();
 // TODO: Нужно, чтобы подгружались название, дата и текст статьи
 // TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
 
-
-const logoutBtn = document.getElementById("logout")
-logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('jwtToken')
-})
+const logoutBtn = document.getElementById("logout");
+logoutBtn?.addEventListener("click", () => {
+  localStorage.removeItem("jwtToken");
+});
