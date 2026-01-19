@@ -2,6 +2,10 @@ function IsAdminPage() {
   return window.location.href == "http://localhost:5000/html/admin.html";
 }
 
+function FormatDate(date) {
+  return date.split("T")[0] || date;
+}
+
 if (localStorage.getItem("jwtToken") == null && IsAdminPage()) {
   window.location.href = "./articles.html";
 }
@@ -92,9 +96,9 @@ function updateReadCon(art) {
     dateCon.innerHTML = "";
     textCon.innerHTML = "";
   } else {
-    if (art.title != undefined) titleCon.innerHTML = art.title;
-    if (art.date != undefined) dateCon.innerHTML = art.date;
-    if (art.text != undefined) textCon.innerHTML = art.text;
+    titleCon.innerHTML = art.title;
+    dateCon.innerHTML = FormatDate(art.date);
+    textCon.innerHTML = art.text;
   }
 }
 function updateUpdateCon(art) {
@@ -107,12 +111,7 @@ function updateUpdateCon(art) {
     textCon.value = "";
   } else {
     if (art.title != undefined) titleCon.value = art.title;
-    if (art.date != undefined) {
-      const dateObj = new Date(art.date);
-      const formattedDate = dateObj.toISOString().split("T")[0];
-      dateCon.value = formattedDate;
-      // TODO: Сделать уже что то с датами на бекэнде
-    }
+    if (art.date != undefined) dateCon.value = FormatDate(art.date);
     if (art.text != undefined) textCon.value = art.text;
   }
 }
@@ -124,7 +123,7 @@ function ViewAllArticles() {
     article.classList.add("article");
     article.innerHTML = `<span class="article-title">${item.title}</span>
           <div class="side-article-con">
-            <span class="date" style="display: inline;">${item.date}</span>
+            <span class="date" style="display: inline;">${FormatDate(item.date)}</span>
             <button class="action-text">Edit</button>
             <button class="action-text">Delete</button>
           </div>`;
@@ -262,9 +261,6 @@ async function UpdateArticle() {
 }
 UpdateArticle();
 AddArticle();
-// Все эти события нужно будет накидывать на каждый article при подгрузке
-// TODO: Нужно, чтобы подгружались название, дата и текст статьи
-// TODO: Тут нужно будет сделать так, чтобы при нажатии на каждую из кнопок edit и delete вылетало окно с update и delete подтверждение
 
 const logoutBtn = document.getElementById("logout");
 logoutBtn?.addEventListener("click", () => {

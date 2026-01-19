@@ -11,8 +11,9 @@ public class Article
     [BsonRequired]
     public string Title { get; set; }
     [BsonRepresentation(BsonType.DateTime)]
+    [BsonDateTimeOptions(Kind = DateTimeKind.Unspecified)]
     [BsonRequired]
-    public DateTime Date { get; set; } = DateTime.Now;
+    public DateTime Date { get; set; } = DateTime.UtcNow;
     [BsonRepresentation(BsonType.String)]
     public string? Text { get; set; } = null;
 }
