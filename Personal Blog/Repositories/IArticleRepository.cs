@@ -10,4 +10,5 @@ public interface IArticleRepository
     Task<Article?> GetByIdAsync(string id);
     Task<Article?> UpdateAsync(string id, string? title, DateTime? date, string? text);
     Task<Article?> DeleteAsync(string id);
+    int GetRequiredIdLength();
 }

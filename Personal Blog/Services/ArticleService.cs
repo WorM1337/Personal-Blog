@@ -14,9 +14,13 @@ namespace Personal_Blog.Services;
 
 public class ArticleService(IArticleRepository articleRepository)
 {
-    private readonly IArticleRepository _articleRepository = articleRepository; 
-    
+    private readonly IArticleRepository _articleRepository = articleRepository;
 
+
+    public int GetRequiredIdLength()
+    {
+        return _articleRepository.GetRequiredIdLength();
+    }
     public async Task<ArticleResponse> InsertArticle(CreateArticleRequest request)
     {
         var result = await _articleRepository.InsertAsync(request.Title, request.Date, request.Text);

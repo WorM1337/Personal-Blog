@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Personal_Blog.Model.Domain;
 using Personal_Blog.Model.Exceptions;
 using Personal_Blog.Model.Requests;
 using Personal_Blog.Model.Responses;
@@ -24,6 +23,10 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [HttpGet("get/{id}")]
     public async Task<ActionResult<ArticleResponse>> GetById(string id)
     {
+        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        {
+            return BadRequest();
+        }
         try
         {
             var result = await _articleService.GetById(id);
@@ -38,7 +41,7 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
 
     [HttpPost("add")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<ArticleResponse>> AddArticle(CreateArticleRequest request)
+    public async Task<ActionResult<ArticleResponse>> AddArticle([FromBody] CreateArticleRequest request)
     {
         var result = await _articleService.InsertArticle(request);
         return Ok(result);
@@ -48,6 +51,10 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ArticleResponse>> DeleteArticle(string id)
     {
+        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        {
+            return BadRequest();
+        }
         try
         {
             var result = await _articleService.DeleteById(id);
@@ -63,6 +70,10 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ArticleResponse>> UpdateArticle(string id, [FromBody] UpdateArticleRequest request)
     {
+        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        {
+            return BadRequest();
+        }
         try
         {
             var result = await _articleService.UpdateOne(id, request);

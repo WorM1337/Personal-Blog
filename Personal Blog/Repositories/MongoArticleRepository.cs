@@ -98,4 +98,9 @@ public class MongoArticleRepository: IArticleRepository
         var result = await _articlesCollection.FindOneAndDeleteAsync(filter);
         return result;
     }
+
+    public int GetRequiredIdLength()
+    {
+        return "696db982eb08b185216ce857".Length;
+    }
 }
