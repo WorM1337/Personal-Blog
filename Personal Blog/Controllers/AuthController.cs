@@ -1,88 +1,52 @@
+using Personal_Blog.Model.Exceptions;
 using Personal_Blog.Model.Requests;
 using Personal_Blog.Model.Responses;
+using Personal_Blog.Services;
 
 namespace Personal_Blog.Controllers;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController(IConfiguration configuration) : ControllerBase
+public class AuthController(IConfiguration configuration, AuthService authService) : ControllerBase
 {
     private readonly IConfiguration _configuration = configuration;
+    private readonly AuthService _authService = authService;
+    
     
     [HttpPost("login")]
     [AllowAnonymous]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        if (request == null || string.IsNullOrEmpty(request.Login) || string.IsNullOrEmpty(request.Password))
+        try
         {
-            return BadRequest(new { message = "Логин и пароль обязательны" });
+            var result = _authService.Login(request);
+            
+            return Ok(result);
         }
-        
-        var adminLogin = _configuration["AdminCredentials:Login"];
-        var adminPassword = _configuration["AdminCredentials:Password"];
-        
-        if (request.Login == adminLogin && request.Password == adminPassword)
+        catch (BadLoginException ex)
         {
-            var token = GenerateJwtToken(request.Login, isAdmin: true);
-            var expireHours = int.Parse(_configuration["Jwt:ExpireHours"] ?? "2");
-
-            return Ok(new AuthResponse
-            {
-                Token = token,
-                Expires = DateTime.UtcNow.AddHours(expireHours),
-                Role = "Admin"
-            });
+            return BadRequest(new { message = ex.Message });
         }
-        return Unauthorized(new { message = "Неверный логин или пароль" });
+        catch (IncorrectLoginException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
     }
     
     [HttpGet("check")]
     [Authorize]
     public IActionResult CheckAuth()
     {
-        var isAdmin = User.HasClaim("IsAdmin", "true");
         var username = User.Identity?.Name;
-
-        return Ok(new
+        return Ok(new CheckAuthResponse
         {
-            IsAuthenticated = true,
             Username = username,
-            IsAdmin = isAdmin,
-            Claims = User.Claims.Select(c => new { c.Type, c.Value })
+            Claims = User.Claims.Select(c => (c.Type, c.Value))
         });
     }
     
-    private string GenerateJwtToken(string username, bool isAdmin)
-    {
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, username)
-        };
-
-        if (isAdmin)
-        {
-            claims.Add(new Claim("IsAdmin", "true"));
-            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
-        }
-
-        var expireHours = int.Parse(_configuration["Jwt:ExpireHours"] ?? "2");
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(expireHours),
-            signingCredentials: credentials
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+    
 }
