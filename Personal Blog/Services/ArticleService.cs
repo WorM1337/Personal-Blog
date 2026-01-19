@@ -4,71 +4,89 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Personal_Blog.Model.Domain;
+using Personal_Blog.Model.Exceptions;
 using Personal_Blog.Model.Requests;
+using Personal_Blog.Model.Responses;
 using Personal_Blog.Model.Settings;
+using Personal_Blog.Repositories;
 
 namespace Personal_Blog.Services;
 
-public class ArticleService
+public class ArticleService(IArticleRepository articleRepository)
 {
-    public readonly IMongoCollection<Article> _articlesCollection;
-    public ArticleService(IOptions<ArticlesDatabaseSetttings> articlesDatabaseSettings)
-    {
-        var client = new MongoClient(articlesDatabaseSettings.Value.ConnectionString);
-        var database = client.GetDatabase(articlesDatabaseSettings.Value.DatabaseName);
-        _articlesCollection = database.GetCollection<Article>(articlesDatabaseSettings.Value.CollectionName);
-    }
+    private readonly IArticleRepository _articleRepository = articleRepository; 
+    
 
-    public async Task InsertArticle(CreateArticleRequest request)
+    public async Task<ArticleResponse> InsertArticle(CreateArticleRequest request)
     {
-        
-        await _articlesCollection.InsertOneAsync(new Article()
+        var result = await _articleRepository.InsertAsync(request.Title, request.Date, request.Text);
+
+        return new ArticleResponse()
         {
-            Title = request.Title,
             Date = request.Date,
             Text = request.Text,
+            Title = request.Title,
+            Id = result.Id
+        };
+    }
+
+    public async Task<IEnumerable<ArticleResponse>> GetAll()
+    {
+        var result = await _articleRepository.GetAllAsync();
+        return result.Select(article => new ArticleResponse()
+        {
+            Date = article.Date,
+            Text = article.Text,
+            Title = article.Title,
+            Id = article.Id
         });
     }
 
-    public async Task<IEnumerable<Article>> GetAll()
+    public async Task<ArticleResponse?> GetById(string id)
     {
-        return await _articlesCollection.AsQueryable().ToListAsync();
-    }
-
-    public async Task<Article?> GetById(string id)
-    {
-        return await _articlesCollection.Find(art => art.Id == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<bool> UpdateOne(string id, UpdateArticleRequest request)
-    {
-        var filter = Builders<Article>.Filter.Eq(art => art.Id, id);
+        var result = await _articleRepository.GetByIdAsync(id);
         
-        var updateList = new List<UpdateDefinition<Article>>();
-
-        if (request.Title != null)
-        {
-            updateList.Add(Builders<Article>.Update.Set("Title", request.Title));
-        }
-        if (request.Date != null)
-        {
-            updateList.Add(Builders<Article>.Update.Set("Date", request.Date));
-        }
-        if (request.Text != null)
-        {
-            updateList.Add(Builders<Article>.Update.Set("Text", request.Text));
-        }
+        if(result == null)
+            throw new ArticleNotfoundException("Article not found by id");
         
-        var combinedUpdate = Builders<Article>.Update.Combine(updateList);
-
-        var result = await _articlesCollection.UpdateOneAsync(filter, combinedUpdate);
-        return result.IsAcknowledged && result.MatchedCount == 1;
+        return new ArticleResponse()
+        {
+            Id = result.Id,
+            Date = result.Date,
+            Text = result.Text,
+            Title = result.Title,
+        };
     }
 
-    public async Task<bool> DeleteById(string id)
+    public async Task<ArticleResponse> UpdateOne(string id, UpdateArticleRequest request)
     {
-        var filter = Builders<Article>.Filter.Eq(art => art.Id, id);
-        var result = await _articlesCollection.DeleteOneAsync(filter);
-        return result.IsAcknowledged && result.DeletedCount > 0;
+        var result = await _articleRepository.UpdateAsync(id,  request.Title, request.Date, request.Text);
+        
+        if(result == null)
+            throw new ArticleNotfoundException("Article not found by id");
+        
+        return new ArticleResponse()
+        {
+            Id = result.Id,
+            Date = result.Date,
+            Text = result.Text,
+            Title = result.Title,
+        };
+    }
+
+    public async Task<ArticleResponse> DeleteById(string id)
+    {
+        var result = await _articleRepository.DeleteAsync(id);
+        
+        if(result == null)
+            throw new ArticleNotfoundException("Article not found by id");
+        
+        return new ArticleResponse()
+        {
+            Id = result.Id,
+            Date = result.Date,
+            Text = result.Text,
+            Title = result.Title,
+        };
     }
 }

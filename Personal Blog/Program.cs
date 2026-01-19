@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Personal_Blog.Model.Settings;
+using Personal_Blog.Repositories;
 using Personal_Blog.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,14 +29,17 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-builder.Services.AddAuthorization(options =>
-{
-    //options.AddPolicy("Admin", policy => policy.RequireClaim("IsAdmin", "true"));
-});
+builder.Services.AddAuthorization();
+
 builder.Services.Configure<ArticlesDatabaseSetttings>(
     builder.Configuration.GetSection("ArticlesDatabaseSettings"));
+builder.Services.AddSingleton<IArticleRepository, MongoArticleRepository>();
+
 builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<AuthService>();
+
 builder.Services.AddLogging();
+
 
 var app = builder.Build();
 

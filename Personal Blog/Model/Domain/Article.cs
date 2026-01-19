@@ -7,7 +7,7 @@ public class Article
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public string Id { get; set; }
     [BsonRequired]
     public string Title { get; set; }
     [BsonRepresentation(BsonType.DateTime)]
