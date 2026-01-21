@@ -10,5 +10,16 @@ services:
     command: mongod --bind_ip_all
     volumes:
       - mongodbdata:/data/db
+  postgres:
+    image: postgres:latest
+    ports:
+      - "10000:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresdata:/data
 volumes:
   mongodbdata:
+  postgresdata:
