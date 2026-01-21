@@ -17,9 +17,9 @@ public class ArticleService(IArticleRepository articleRepository)
     private readonly IArticleRepository _articleRepository = articleRepository;
 
 
-    public int GetRequiredIdLength()
+    public bool IsRequiredIdLength(int length)
     {
-        return _articleRepository.GetRequiredIdLength();
+        return _articleRepository.IsRequiredIdLength(length);
     }
     public async Task<ArticleResponse> InsertArticle(CreateArticleRequest request)
     {

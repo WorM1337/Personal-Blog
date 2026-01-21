@@ -11,17 +11,19 @@ public class MongoArticleRepository: IArticleRepository
 {
     private readonly IMongoCollection<Article> _articlesCollection;
     private readonly ILogger<MongoArticleRepository> _logger;
-    public MongoArticleRepository(IOptions<ArticlesDatabaseSetttings> articlesDatabaseSettings, ILogger<MongoArticleRepository> logger)
+    private readonly IConfiguration _configuration;
+    public MongoArticleRepository(IOptions<ArticlesDatabaseSettings> articlesDatabaseSettings, ILogger<MongoArticleRepository> logger,  IConfiguration configuration)
     {
         _logger = logger;
+        _configuration = configuration;
         
-        var connectionString = articlesDatabaseSettings.Value.ConnectionString;
+        var connectionString = _configuration.GetConnectionString("MongoDB");
         var databaseName = articlesDatabaseSettings.Value.DatabaseName;
         var collectionName = articlesDatabaseSettings.Value.CollectionName;
         if (string.IsNullOrEmpty(connectionString) || string.IsNullOrEmpty(databaseName) ||
             string.IsNullOrEmpty(collectionName))
         {
-            throw new ArgumentException("Connection and DatabaseName and CollectionName are required in configuration settings");
+            throw new ArgumentException("Connection MongoDB and DatabaseName and CollectionName are required in configuration settings");
         }
         
         var client = new MongoClient(connectionString);
@@ -99,8 +101,8 @@ public class MongoArticleRepository: IArticleRepository
         return result;
     }
 
-    public int GetRequiredIdLength()
+    public bool IsRequiredIdLength(int length)
     {
-        return "696db982eb08b185216ce857".Length;
+        return length == 24;
     }
 }

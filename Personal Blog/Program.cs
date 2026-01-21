@@ -1,7 +1,9 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Personal_Blog.Contexts;
 using Personal_Blog.Model.Settings;
 using Personal_Blog.Repositories;
 using Personal_Blog.Services;
@@ -31,9 +33,21 @@ builder.Services.AddAuthentication(options =>
     });
 builder.Services.AddAuthorization();
 
-builder.Services.Configure<ArticlesDatabaseSetttings>(
-    builder.Configuration.GetSection("ArticlesDatabaseSettings"));
-builder.Services.AddSingleton<IArticleRepository, MongoArticleRepository>();
+builder.Services.Configure<ArticlesDatabaseSettings>(
+    builder.Configuration.GetSection("ArticlesMongoDBSettings"));
+
+if (builder.Configuration["CurrentDatabase"] == "PostgreSQL")
+{
+    builder.Services.AddDbContext<ArticleContext>(options => 
+        options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+    builder.Services.AddScoped<IArticleRepository, PostgresArticleRepository>();
+}
+else
+{
+    builder.Services.AddSingleton<IArticleRepository, MongoArticleRepository>();
+}
+
+
 
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<AuthService>();

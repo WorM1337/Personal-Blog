@@ -23,7 +23,7 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [HttpGet("get/{id}")]
     public async Task<ActionResult<ArticleResponse>> GetById(string id)
     {
-        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        if (string.IsNullOrEmpty(id) || !_articleService.IsRequiredIdLength(id.Length))
         {
             return BadRequest();
         }
@@ -51,7 +51,7 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ArticleResponse>> DeleteArticle(string id)
     {
-        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        if (string.IsNullOrEmpty(id) || !_articleService.IsRequiredIdLength(id.Length))
         {
             return BadRequest();
         }
@@ -70,7 +70,7 @@ public class ArticleController(ILogger<ArticleController> logger, ArticleService
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ArticleResponse>> UpdateArticle(string id, [FromBody] UpdateArticleRequest request)
     {
-        if (string.IsNullOrEmpty(id) || id.Length != _articleService.GetRequiredIdLength())
+        if (string.IsNullOrEmpty(id) || !_articleService.IsRequiredIdLength(id.Length))
         {
             return BadRequest();
         }
