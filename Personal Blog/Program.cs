@@ -56,9 +56,8 @@ builder.Services.AddLogging();
 
 
 var app = builder.Build();
-
 app.UseStaticFiles();
-
+app.Logger.LogInformation("You can go to site: {0}", app.Configuration["Urls"].Trim(';').Split(';').Aggregate("",(acc, url) => acc + url + "/html/welcome.html" + " "));
 app.UseAuthentication();
 app.UseAuthorization();
 
