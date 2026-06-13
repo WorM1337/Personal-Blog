@@ -1,0 +1,71 @@
+name: SAST - Semgrep
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+env:
+  SEMGREP_CONFIGS: >-
+    --config p/default 
+    --config p/csharp
+    --config r/csharp.dotnet.security.audit.ldap-injection.ldap-injection
+    --config r/csharp.dotnet.security.audit.xpath-injection.xpath-injection
+    --config r/csharp.dotnet.security.use_deprecated_cipher_algorithm.use_deprecated_cipher_algorithm
+    --config r/csharp.dotnet.security.use_weak_rng_for_keygeneration.use_weak_rng_for_keygeneration
+    --config r/csharp.lang.security.cryptography.unsigned-security-token.unsigned-security-token
+    --config r/csharp.lang.security.injections.os-command.os-command-injection
+    --config r/csharp.lang.security.open-redirect.open-redirect
+    --config r/csharp.lang.security.sqli.csharp-sqli.csharp-sqli
+    --config r/csharp.lang.security.ssrf.http-client.ssrf
+    --config r/csharp.lang.security.ssrf.rest-client.ssrf
+    --config r/csharp.lang.security.ssrf.web-client.ssrf
+    --config r/csharp.lang.security.ssrf.web-request.ssrf
+    --config r/javascript.aws-lambda.security.detect-child-process.detect-child-process
+
+jobs:
+  semgrep:
+    name: Run Semgrep security scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Restore and build solution
+        uses: ./.github/actions/build-n-restore
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Semgrep
+        run: python -m pip install semgrep
+
+      - name: Prepare report directory
+        run: mkdir -p reports/sast
+
+      - name: Run Semgrep SARIF scan
+        run: semgrep scan $SEMGREP_CONFIGS --sarif --output reports/sast/semgrep.sarif --metrics=off .
+
+      - name: Upload SARIF to GitHub code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/sast/semgrep.sarif
+
+      - name: Upload Semgrep reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-semgrep-report
+          path: reports/sast
+          if-no-files-found: error
