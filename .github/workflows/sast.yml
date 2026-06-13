@@ -29,6 +29,17 @@ env:
     --config r/csharp.lang.security.ssrf.web-client.ssrf
     --config r/csharp.lang.security.ssrf.web-request.ssrf
     --config r/javascript.aws-lambda.security.detect-child-process.detect-child-process
+    --config r/javascript.aws-lambda.security.dynamodb-request-object.dynamodb-request-object
+    --config r/javascript.aws-lambda.security.vm-runincontext-injection.vm-runincontext-injection
+    --config r/javascript.browser.security.dom-based-xss.dom-based-xss
+    --config r/javascript.jsonwebtoken.security.jwt-none-alg.jwt-none-alg
+    --config r/javascript.lang.security.spawn-git-clone.spawn-git-clone
+    --config r/javascript.node-crypto.security.create-de-cipher-no-iv.create-de-cipher-no-iv
+    --config r/javascript.node-crypto.security.gcm-no-tag-length.gcm-no-tag-length
+    --config r/javascript.jwt-simple.security.jwt-simple-noverify.jwt-simple-noverify
+    --config r/javascript.lang.security.audit.code-string-concat.code-string-concat
+    --config r/javascript.lang.security.audit.dangerous-spawn-shell.dangerous-spawn-shell
+    
 
 jobs:
   semgrep:
