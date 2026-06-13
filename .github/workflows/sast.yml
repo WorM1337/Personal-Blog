@@ -45,6 +45,7 @@ jobs:
   semgrep:
     name: Run Semgrep security scan
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Checkout repository
