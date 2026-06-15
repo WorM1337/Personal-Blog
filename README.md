@@ -86,7 +86,6 @@ Tool: **OWASP ZAP Baseline**
 Files:
 
 - Workflow: `.github/workflows/dast.yml`
-- Rules file: `.zap/rules.tsv`
 
 What the workflow does:
 
@@ -117,7 +116,7 @@ dotnet run --no-launch-profile --project "Personal Blog/Personal Blog.csproj"
 
 ```bash
 mkdir -p reports/dast
-docker run --rm --network host -v "$(pwd):/zap/wrk/:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:5000/html/welcome.html -r reports/dast/report_html.html -J reports/dast/report_json.json -w reports/dast/report_md.md -c .zap/rules.tsv -a
+docker run --rm --network host -v "$(pwd):/zap/wrk/:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:5000/html/welcome.html -r reports/dast/report_html.html -J reports/dast/report_json.json -w reports/dast/report_md.md -a
 ```
 
 Expected demo findings:
@@ -126,8 +125,6 @@ Expected demo findings:
 - missing `X-Frame-Options`
 - missing `X-Content-Type-Options`
 - missing `Strict-Transport-Security`
-
-The configured rules keep these alerts visible in the report so they can be shown during the defense.
 
 
 ## Reports In GitHub Actions
