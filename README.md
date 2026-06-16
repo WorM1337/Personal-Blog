@@ -119,14 +119,6 @@ mkdir -p reports/dast
 docker run --rm --network host -v "$(pwd):/zap/wrk/:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:5000/html/welcome.html -r reports/dast/report_html.html -J reports/dast/report_json.json -w reports/dast/report_md.md -a
 ```
 
-Expected demo findings:
-
-- missing `Content-Security-Policy`
-- missing `X-Frame-Options`
-- missing `X-Content-Type-Options`
-- missing `Strict-Transport-Security`
-
-
 ## Reports In GitHub Actions
 
 Artifacts currently published:
